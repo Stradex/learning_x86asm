@@ -14,7 +14,7 @@ _start:
 lea data_items, %eax			# Copy the memory address at the start of data_items to %eax
 pushl %eax				# push first argument
 call bubble_sort			# call the bubble_sort
-addl $8, %esp				# move the stack pointer back
+addl $4, %esp				# move the stack pointer back
 movl $0, %edi				# set the index register %edi to zero
 movl (%eax,%edi,4), %ebx		# set the %ebx to be the value of the first element at the sorted array
 					# that was returned by the bubble_sort function (%eax).

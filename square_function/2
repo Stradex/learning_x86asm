@@ -1,0 +1,32 @@
+#PURPOSE:	Calculate the square of 3.
+
+.section .data
+# No global data
+.section .text
+# No text
+
+.globl _start
+.globl square
+_start:
+	pushl $3		#Pass 3 as the first argument of the square function
+	call square		#Call the square function
+	addl $4, %esp		#Move the stack pointer back (4*number of long arguments)
+	movl %eax, %ebx		#Move the function return value to %ebx register (exit status code)
+	movl $1, %eax		#Se the kernel system call code to 1, it means exit program
+	int  $0x80
+
+#PURPOSE:	Calculate the square of a number
+#
+#INPUT:		First argument: Number to be squared.
+#
+#OUTPUT:	Square of the number. 
+.type square, @function
+square:
+	pushl %ebp		#Save old base pointer
+	movl %esp, %ebp		#Make stack pointer the base pointer
+	subl $4, %esp		#Make room for my local variable (4 bytes long variable)
+	
+
+square_end:
+	movl -4(%ebp), %eax	#return value goes in %eax
+	movl %ebp, %esp		#restore the stack pointer
